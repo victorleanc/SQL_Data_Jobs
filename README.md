@@ -1,10 +1,13 @@
 # 📊 Data Engineer Job Market Analysis
 
 ## 🏆 Introduction
+
 Welcome to the **Data Engineer Job Market Analysis**! This project explores various aspects of Data Engineer roles using SQL queries, providing insights into salary trends, required skills, and the most optimal skills to learn. 🚀
 
 ## 📚 Background
+
 The job market for Data Engineers is competitive, with salaries and skill demands varying across companies and locations. This analysis aims to answer key questions about the profession, including:
+
 - What are the top-paying jobs?
 - What skills are required for high-paying roles?
 - Which skills are in the highest demand?
@@ -12,6 +15,8 @@ The job market for Data Engineers is competitive, with salaries and skill demand
 - What are the best skills to learn as a Software Engineer transitioning to Data Engineering?
 
 ## 🛠️ Tools I Used
+
+- **PostgreSQL**: To manage and query job postings data
 - **SQL**: To query and analyze job postings
 - **Database Schema**: Includes tables such as `job_postings_fact`, `company_dim`, and `skills_dim`
 - **Data Visualization**: (Markdown graphics & tables included in the analysis)
@@ -21,9 +26,11 @@ The job market for Data Engineers is competitive, with salaries and skill demand
 ## 📊 The Analysis
 
 ### 1️⃣ What are the top-paying jobs?
+
 To identify the highest-paying Data Engineer roles, we filtered jobs by title, ensured salary data was available, and sorted the results in descending order of salary.
 
 **SQL Query:**
+
 ```sql
 SELECT
   job_id,
@@ -32,9 +39,9 @@ SELECT
   name AS company_name
 FROM
   job_postings_fact AS job_postings
-JOIN
+JOIN 
   company_dim ON job_postings.company_id = company_dim.company_id
-WHERE
+WHERE 
   job_title_short = 'Data Engineer'
   AND salary_year_avg IS NOT NULL
   AND job_location = 'Anywhere'
@@ -42,14 +49,17 @@ ORDER BY
   salary_year_avg DESC
 LIMIT 10;
 ```
+
 📌 **Insight:** The highest-paying jobs belong to top-tier tech companies and startups willing to offer competitive salaries for skilled professionals.
 
 ---
 
 ### 2️⃣ What skills are required for the top-paying Data Engineer jobs?
+
 We joined job postings with the skills table to see which skills are most common among the highest-paid positions.
 
 **SQL Query:**
+
 ```sql
 WITH top_paying AS (
   SELECT
@@ -59,9 +69,9 @@ WITH top_paying AS (
     name AS company_name
   FROM
     job_postings_fact AS job_postings
-  JOIN
+  JOIN 
     company_dim ON job_postings.company_id = company_dim.company_id
-  WHERE
+  WHERE 
     job_title_short = 'Data Engineer'
     AND salary_year_avg IS NOT NULL
     AND job_location = 'Anywhere'
@@ -78,14 +88,17 @@ INNER JOIN
   skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 LIMIT 10;
 ```
+
 📌 **Insight:** The most valuable skills include **Python, SQL, Cloud Computing (AWS/GCP), and Big Data technologies (Spark, Hadoop, Kafka).**
 
 ---
 
 ### 3️⃣ What are the most in-demand skills for Data Engineers?
+
 We counted the number of times each skill appeared in job postings to determine demand.
 
 **SQL Query:**
+
 ```sql
 SELECT
   skills,
@@ -103,9 +116,11 @@ ORDER BY
   demand_count DESC
 LIMIT 5;
 ```
+
 📌 **Insight:** The most in-demand skills are **SQL, Python, ETL, Cloud Platforms, and Data Warehousing.**
 
 📈 **Bar Chart Representation:**
+
 ```
 | Skill        | Demand Count |
 |-------------|--------------|
@@ -119,9 +134,11 @@ LIMIT 5;
 ---
 
 ### 4️⃣ What are the top skills based on salary?
+
 We computed the average salary associated with each skill to determine which are the most lucrative.
 
 **SQL Query:**
+
 ```sql
 SELECT
   skills,
@@ -140,9 +157,11 @@ ORDER BY
   avg_salary DESC
 LIMIT 25;
 ```
+
 📌 **Insight:** The highest-paying skills include **Machine Learning, Kubernetes, Scala, and Cloud Architecture.**
 
 📊 **Salary Comparison Table:**
+
 ```
 | Skill              | Avg Salary ($) |
 |-------------------|---------------|
@@ -156,9 +175,11 @@ LIMIT 25;
 ---
 
 ### 5️⃣ What are the most optimal skills to learn as a Software Engineer?
+
 To help Software Engineers transition to Data Engineering, we identified skills with **both high demand and high salary.**
 
 **SQL Query:**
+
 ```sql
 SELECT
   skills_dim.skill_id,
@@ -180,18 +201,22 @@ ORDER BY
   demand_count DESC
 LIMIT 25;
 ```
+
 📌 **Insight:** Learning **Python, SQL, Cloud (AWS/GCP), and Data Engineering tools like Airflow and Spark** offers a strong career advantage.
 
 ---
 
 ## 🎯 What I Learned
+
 - Data Engineering salaries vary significantly based on **skills and company**.
 - **Cloud Computing** and **Machine Learning** skills drive higher salaries.
 - SQL and Python remain **essential skills** in the job market.
 
 ## 🔥 Conclusion
+
 This project showcases how SQL can be leveraged to analyze job market trends, helping professionals make **informed career decisions**. Whether you're aiming for a Data Engineer role or transitioning from Software Engineering, **choosing the right skills is key to success!** 🚀
 
 📌 If you found this analysis helpful, **star this repository** ⭐ and explore more data-driven insights! 😊
+
 
 *this readme.md was created with the help of chatGPT*
